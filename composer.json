@@ -1,0 +1,8 @@
+{
+    "name": "aleksav/backend-zadatak",
+    "autoload": {
+        "psr-4": {
+            "App\\":"app/src/"
+        }
+    }
+}
