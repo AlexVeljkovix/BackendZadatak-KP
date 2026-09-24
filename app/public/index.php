@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Middleware\CsrfMiddleware;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
@@ -17,6 +18,7 @@ define('VIEW_PATH', __DIR__ . '/../views');
 
 
 try{
+
     $action=$router->resolve($request);
 
     $response = $dispatcher->dispatch($action, $request);

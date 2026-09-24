@@ -7,7 +7,6 @@ namespace App\Http;
 class Request
 {
     public function __construct(
-        private array $query,
         private array $body,
         private string $method,
         private string $uri
@@ -15,22 +14,14 @@ class Request
     }
 
     public static function createFromGlobals():static{
+        $body = $_POST;
+        $body['ip']= $_SERVER['REMOTE_ADDR'] ?? '';
+
         return new static(
-            $_GET,
-            $_POST,
+            $body,
             $_SERVER['REQUEST_METHOD'],
             $_SERVER['REQUEST_URI']
         );
-    }
-
-    public function query(string $key, mixed $default=null):mixed
-    {
-        return $this->query[$key]?? $default;
-    }
-
-    public function input(string $key, mixed $default=null):mixed
-    {
-        return $this->body[$key]?? $default;
     }
 
     public function method(): string{
@@ -45,8 +36,7 @@ class Request
         return parse_url($this->uri(), PHP_URL_PATH);
     }
 
-    public function all():array{
+    public function body():array{
         return $this->body;
     }
-
 }

@@ -11,12 +11,12 @@ class RegistrationMail implements Mail
     #[Override]
     public function subject(): string 
     {
-        return "Dobro Dosli";
+        return "Dobro Došli";
     }
 
     #[Override]
     public function message(): string
     {
-        return "Uspesno ste se registrovali na nas sajt";
+        return "Uspešno ste se registrovali na naš sajt!";
     }
 }

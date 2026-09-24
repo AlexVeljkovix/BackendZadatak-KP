@@ -7,12 +7,10 @@ namespace App\Controllers;
 use App\Http\HtmlResponse;
 use App\Http\JsonResponse;
 use App\Http\Request;
-use App\Http\Response;
 use App\Services\RegistrationService;
 use App\Validation\RegistrationRules;
 use App\Validation\Validator;
 use App\View;
-use RuntimeException;
 
 class RegistrationController
 {
@@ -30,14 +28,14 @@ class RegistrationController
 
     public function register(Request $request): JsonResponse
     {
-        $data= $request->all();
+        $data= $request->body();
 
         $rules= $this->registrationRules->rules();
 
         $error= $this->validator->validate($data, $rules);
 
         if($error !== null){
-            return new JsonResponse(['success' => false, 'field' => $error->field, 'error' => $error->code], 422);
+            return new JsonResponse(['success' => false, 'field' => $error->field, 'code' => $error->code], 422);
         }
 
         $userId = $this->registrationService->register($data['email'], $data['password']);

@@ -5,10 +5,13 @@ declare(strict_types=1);
 use App\Exceptions\ErrorHandler;
 use App\Http\Request;
 use App\Routing\Dispatcher;
+use App\Session\SessionService;
 
 $container= require __DIR__ . '/container.php';
 
 $router= require __DIR__ . '/routes.php';
+
+SessionService::start();
 
 $request= Request::createFromGlobals();
 

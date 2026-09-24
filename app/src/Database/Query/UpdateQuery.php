@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Database\Query;
 
 use App\Database\SqlExpression;
+use App\Exceptions\InvalidQueryParametersException;
 use LogicException;
 use Override;
 
@@ -42,7 +43,7 @@ class UpdateQuery implements Query
     public function build(): CompiledQuery
     {
         if (!isset($this->table) || $this->setParams === [] || $this->conditions === []) {
-            throw new LogicException('Query builder parameters missing.');
+            throw new InvalidQueryParametersException('Update query builder parameters missing.');
         }
 
         $sql='';

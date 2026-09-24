@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Database\Query;
 
 use App\Database\SqlExpression;
+use App\Exceptions\InvalidQueryParametersException;
 use LogicException;
 use Override;
 
@@ -28,7 +29,7 @@ class InsertQuery implements Query
     {
         
         if (!isset($this->table) || $this->values===[]) {
-            throw new LogicException('Query builder parameters missing.');
+            throw new InvalidQueryParametersException('Insert query builder parameters missing.');
         }
         
         $columns= array_keys($this->values);

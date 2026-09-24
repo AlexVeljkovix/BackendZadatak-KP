@@ -8,13 +8,6 @@ use Override;
 
 class SessionService implements SessionInterface
 {
-    public function __construct()
-    {
-        if(session_status() === PHP_SESSION_NONE){
-            session_start();
-        }
-    }
-
     #[Override]
     public function set(string $key, mixed $value): void
     {
@@ -26,4 +19,13 @@ class SessionService implements SessionInterface
     {
         return $_SESSION[$key] ?? $default;
     }
+
+    public static function start(): void
+    {
+        
+        if(session_status() === PHP_SESSION_NONE){
+            session_start();
+        }
+    }
+
 }

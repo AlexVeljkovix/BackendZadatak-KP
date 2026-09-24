@@ -1,5 +1,9 @@
 const form = document.querySelector("form");
 
+const errorPopup = document.getElementById("error-popup");
+const errorPopupMessage = document.getElementById("error-popup-message");
+const errorPopupClose = document.getElementById("error-popup-close");
+
 const errorMessages = {
   required: "This field is required.",
   email_format: "Please enter a valid email address.",
@@ -8,6 +12,8 @@ const errorMessages = {
   email_exists: "This email is already registered.",
   fraud_detected: "Registration cannot be completed.",
   server_error: "A server error occurred. Please try again.",
+  invalid_csrf_token:
+    "Your session has expired. Please refresh the page and try again.",
 };
 
 form.addEventListener("submit", async (event) => {
@@ -35,7 +41,7 @@ form.addEventListener("submit", async (event) => {
       if (result.field && result.code) {
         showError(result.field, result.code);
       } else {
-        showGeneralError();
+        showGeneralError(result.code);
       }
 
       return;
@@ -43,13 +49,13 @@ form.addEventListener("submit", async (event) => {
 
     window.location.href = "/registration/success";
   } catch (error) {
-    console.error("Registration error:", error);
+    console.error("Registration error", error);
 
     showGeneralError();
   }
 });
 
-function showError(field, error) {
+function showError(field, code) {
   const input = document.getElementById(field);
   const errorElement = document.getElementById(`${field}-error`);
 
@@ -60,11 +66,14 @@ function showError(field, error) {
 
   input.classList.add("input-error");
 
-  errorElement.textContent = errorMessages[error] ?? "Invalid value.";
+  errorElement.textContent = errorMessages[code] ?? "Invalid value.";
 }
 
-function showGeneralError() {
-  alert("A server error occurred. Please try again.");
+function showGeneralError(code = "server_error") {
+  errorPopupMessage.textContent =
+    errorMessages[code] ?? errorMessages.server_error;
+
+  errorPopup.classList.add("show");
 }
 
 function clearErrors() {
@@ -75,4 +84,10 @@ function clearErrors() {
   document.querySelectorAll(".error").forEach((error) => {
     error.textContent = "";
   });
+
+  errorPopup.classList.remove("show");
 }
+
+errorPopupClose.addEventListener("click", () => {
+  errorPopup.classList.remove("show");
+});

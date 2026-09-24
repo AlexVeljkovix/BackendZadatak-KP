@@ -63,6 +63,11 @@
 
 </div>
 
+<div id="error-popup" class="error-popup">
+    <span id="error-popup-message"></span>
+    <button type="button" id="error-popup-close">&times;</button>
+</div>
+
 <script src="/js/register.js"></script>
 
 </body>

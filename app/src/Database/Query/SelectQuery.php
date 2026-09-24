@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Database\Query;
 
 use App\Database\SqlExpression;
+use App\Exceptions\InvalidQueryParametersException;
 use LogicException;
 use Override;
 
@@ -38,7 +39,7 @@ class SelectQuery implements Query
     public function build(): CompiledQuery
     {
         if (!isset($this->table) || $this->columns === []) {
-            throw new LogicException('Query builder parameters missing.');
+            throw new InvalidQueryParametersException('Select query builder parameters missing.');
         }
 
         $columns=implode(', ', $this->columns);

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Validation\Rules;
 
-use App\Validation\Rule;
+use App\Validation\Rules\Rule;
 use App\Validation\ValidationError;
 use Override;
 

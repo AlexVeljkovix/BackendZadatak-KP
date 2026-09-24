@@ -25,7 +25,7 @@ $container->bind(UserRepositoryInterface::class, UserRepository::class);
 $container->bind(FraudDetectorInterface::class, MaxMindFraudDetector::class);
 
 $container->bind(Database::class, function(){
-$host = getenv('DB_HOST');
+    $host = getenv('DB_HOST');
     $username = getenv('MYSQL_USER');
     $password = getenv('MYSQL_PASSWORD');
     $database= getenv('MYSQL_DATABASE');
@@ -55,6 +55,5 @@ $container->bind(SessionInterface::class, SessionService::class);
 $container->bind(MailerInterface::class, Mailer::class);
 
 $container->bind(UserLogRepositoryInterface::class, UserLogRepository::class);
-
 
 return $container;

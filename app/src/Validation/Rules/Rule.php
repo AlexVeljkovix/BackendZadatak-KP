@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Validation;
+namespace App\Validation\Rules;
+
+use App\Validation\ValidationError;
 
 interface Rule
 {
